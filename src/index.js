@@ -1,8 +1,5 @@
-// import axios from 'axios';
 import Notiflix from 'notiflix';
 import ImagesApiService from './js/api-service';
-
-// import { markupImages } from './js/markup';
 
 const refs = {
   input: document.querySelector('[name="searchQuery"]'),
@@ -26,22 +23,22 @@ function onSearch(evt) {
       'Sorry, there are no images matching your search query. Please try again.'
     );
   }
+
+  imagesApiService.resetPage();
+  imagesApiService.fetchImages().then(createGalleryMarkup);
+  refs.loadMoreBtn.hidden = false;
   //   if ( === 0) {
   //     return Notiflix.Notify.failure(
   //       'Sorry, there are no images matching your search query. Please try again.'
   //     );
   //   }
-
-  imagesApiService.resetPage();
-  imagesApiService.fetchImages().then(createGalleryMarkup);
-  refs.loadMoreBtn.hidden = false;
 }
 
 function onClick() {
   imagesApiService.incrementPage();
   imagesApiService.fetchImages().then(createGalleryMarkup);
 
-  //   if (promise.data.hits.length  promise.data.totalHits.length) {
+  //   if (promise.data.hits.length > ) {
   //     return alert('The end');
   //   }
 }
