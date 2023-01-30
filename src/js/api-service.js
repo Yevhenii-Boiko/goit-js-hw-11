@@ -11,10 +11,10 @@ export default class ImagesApiService {
     const API_KEY = '33163433-7381312326b7cb4a7310bb1a7';
     const filter = `?key=${API_KEY}&q=${this.searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&per_page=${this.quantity}&page=${this.page}`;
     return await axios.get(`${BASE_URL}${filter}`).then(promise => {
-      console.log(promise.data.totalHits);
+      //   console.log(promise.data.totalHits);
       console.log(promise.data);
-      console.log(promise.data.hits);
-      return promise.data.hits;
+      //   console.log(promise.data.hits);
+      return promise.data;
     });
   }
 

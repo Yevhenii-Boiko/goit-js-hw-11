@@ -25,22 +25,34 @@ function onSearch(evt) {
   }
 
   imagesApiService.resetPage();
-  imagesApiService.fetchImages().then(createGalleryMarkup);
-  refs.loadMoreBtn.hidden = false;
-  //   if ( === 0) {
-  //     return Notiflix.Notify.failure(
-  //       'Sorry, there are no images matching your search query. Please try again.'
-  //     );
-  //   }
+  imagesApiService.fetchImages().then(data => {
+    createGalleryMarkup(data.hits);
+    if (data.hits.length === 0) {
+      return Notiflix.Notify.failure(
+        'Sorry, there are no images matching your search query. Please try again.'
+      );
+    }
+    refs.loadMoreBtn.hidden = false;
+
+    if (data.hits.length < 40) {
+      refs.loadMoreBtn.hidden = true;
+    }
+  });
 }
 
 function onClick() {
   imagesApiService.incrementPage();
-  imagesApiService.fetchImages().then(createGalleryMarkup);
+  imagesApiService.fetchImages().then(data => {
+    createGalleryMarkup(data.hits);
+    refs.loadMoreBtn.hidden = false;
 
-  //   if (promise.data.hits.length > ) {
-  //     return alert('The end');
-  //   }
+    if (data.hits.length < 40) {
+      refs.loadMoreBtn.hidden = true;
+      return Notiflix.Notify.info(
+        "We're sorry, but you've reached the end of search results."
+      );
+    }
+  });
 }
 
 function clearGallery() {
